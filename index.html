@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>🧙‍♀️ Magic Memory</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-purple">
+
+  <!-- ========== START SCREEN ========== -->
+  <div id="start-screen" class="screen active">
+    <div class="start-scroll">
+      <div class="title-area">
+        <div class="title-emoji">🧙‍♀️</div>
+        <h1>Magic Memory</h1>
+        <p class="subtitle">Flip the cards and find the pairs!</p>
+      </div>
+
+      <div class="card-section">
+        <div class="section-label">✨ Choose Theme</div>
+        <div class="theme-grid">
+          <button class="theme-btn selected" data-theme="purple" onclick="selectTheme('purple')">
+            <div class="theme-preview purple-prev">✦</div>
+            <span>💜 Purple Magic</span>
+          </button>
+          <button class="theme-btn" data-theme="warm" onclick="selectTheme('warm')">
+            <div class="theme-preview warm-prev">🔮</div>
+            <span>🔮 Parchment</span>
+          </button>
+          <button class="theme-btn" data-theme="neon" onclick="selectTheme('neon')">
+            <div class="theme-preview neon-prev">⚡</div>
+            <span>⚡ Neon Night</span>
+          </button>
+          <button class="theme-btn" data-theme="random" onclick="selectTheme('random')">
+            <div class="theme-preview random-prev">🎲</div>
+            <span>🎲 Random</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="card-section">
+        <div class="section-label">🌟 Choose Difficulty</div>
+        <div class="diff-grid">
+          <button class="diff-btn selected" data-diff="easy" onclick="selectDiff('easy')">
+            <div class="diff-icon">⭐</div>
+            <div class="diff-name">Easy</div>
+            <div class="diff-info">4×3 · 12 cards</div>
+          </button>
+          <button class="diff-btn" data-diff="normal" onclick="selectDiff('normal')">
+            <div class="diff-icon">⭐⭐</div>
+            <div class="diff-name">Normal</div>
+            <div class="diff-info">4×4 · 16 cards</div>
+          </button>
+        </div>
+      </div>
+
+      <button class="play-btn" onclick="startGame()">🪄 Play!</button>
+    </div>
+  </div>
+
+  <!-- ========== GAME SCREEN ========== -->
+  <div id="game-screen" class="screen">
+    <div class="game-header">
+      <div class="stats">
+        <div class="stat">
+          <span class="stat-icon">⏱</span>
+          <span class="stat-val" id="timer">0:00</span>
+        </div>
+        <div class="stat">
+          <span class="stat-icon">🔄</span>
+          <span class="stat-val" id="moves">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-icon">✅</span>
+          <span class="stat-val" id="pairs">0/6</span>
+        </div>
+      </div>
+      <button class="wand-btn" onclick="openThemePanel()" title="Switch theme">🪄</button>
+    </div>
+
+    <div class="grid-wrapper">
+      <div id="card-grid" class="card-grid"></div>
+    </div>
+
+    <!-- Theme switcher panel -->
+    <div id="theme-panel" class="theme-panel hidden" onclick="closeThemePanel(event)">
+      <div class="theme-panel-box">
+        <div class="panel-title">✨ Switch Theme</div>
+        <div class="panel-btns">
+          <button onclick="switchThemeTo('purple')">
+            <div class="theme-preview purple-prev">✦</div>
+            💜 Purple Magic
+          </button>
+          <button onclick="switchThemeTo('warm')">
+            <div class="theme-preview warm-prev">🔮</div>
+            🔮 Parchment
+          </button>
+          <button onclick="switchThemeTo('neon')">
+            <div class="theme-preview neon-prev">⚡</div>
+            ⚡ Neon Night
+          </button>
+        </div>
+        <button class="close-panel" onclick="closeThemePanel()">✕ Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== VICTORY SCREEN ========== -->
+  <div id="victory-screen" class="overlay hidden">
+    <canvas id="confetti-canvas"></canvas>
+    <div class="victory-box">
+      <div class="v-emoji" id="v-emoji">🎉</div>
+      <h2 class="v-title">You Win!</h2>
+      <div class="v-stars" id="v-stars">⭐⭐⭐</div>
+      <div class="v-stats">
+        <div class="vstat">
+          <div class="vstat-label">⏱ Time</div>
+          <div class="vstat-val" id="final-time">—</div>
+        </div>
+        <div class="vstat">
+          <div class="vstat-label">🔄 Flips</div>
+          <div class="vstat-val" id="final-moves">—</div>
+        </div>
+      </div>
+      <div class="v-btns">
+        <button class="v-btn primary" onclick="restartGame()">🔄 Play Again</button>
+        <button class="v-btn" onclick="goHome()">🏠 Home</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
