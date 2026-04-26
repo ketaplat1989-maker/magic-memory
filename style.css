@@ -487,7 +487,8 @@ h1 {
   background: var(--cf-bg);
   border: 2.5px solid var(--cf-border);
   box-shadow: 0 4px 18px var(--cf-glow);
-  font-size: clamp(30px, 7vmin, 58px);
+  padding: 0;
+  overflow: hidden;
 }
 
 /* Matched */

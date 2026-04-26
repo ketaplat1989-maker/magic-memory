@@ -1,12 +1,6 @@
 'use strict';
 
-/* ===================================================
-   CARD CONTENT
-=================================================== */
-const EMOJIS = {
-  easy:   ['👻','🧙','🏰','🧟','🐘','🕷️'],
-  normal: ['👻','🧙','🏰','🧟','🐘','🕷️','🧛','🎃'],
-};
+/* CARD_KEYS and CARD_ART are defined in cards.js */
 
 const THEMES = ['purple', 'warm', 'neon'];
 
@@ -130,9 +124,9 @@ function startGame() {
   applyTheme(theme);
 
   /* Build deck */
-  const emojis = EMOJIS[S.difficulty];
-  S.cards = shuffle([...emojis, ...emojis]).map((emoji, id) => ({
-    id, emoji, flipped: false, matched: false,
+  const keys = CARD_KEYS[S.difficulty];
+  S.cards = shuffle([...keys, ...keys]).map((key, id) => ({
+    id, key, flipped: false, matched: false,
   }));
 
   S.flipped  = [];
@@ -195,7 +189,7 @@ function renderGrid() {
     el.innerHTML = `
       <div class="card-inner">
         <div class="card-face back"><span class="back-sym">${sym}</span></div>
-        <div class="card-face front">${card.emoji}</div>
+        <div class="card-face front">${CARD_ART[card.key] || ''}</div>
       </div>`;
     bindCardTap(el, card.id);
     grid.appendChild(el);
@@ -244,7 +238,7 @@ function handleCardClick(id) {
 
 function checkMatch() {
   const [a, b] = S.flipped;
-  if (S.cards[a].emoji === S.cards[b].emoji) {
+  if (S.cards[a].key === S.cards[b].key) {
     /* Hit */
     setTimeout(() => {
       S.cards[a].matched = S.cards[b].matched = true;
